@@ -18,90 +18,62 @@ using System.Configuration;
 
 namespace PrimerExamenHospital
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        SqlConnection conecxion;
         public MainWindow()
         {
             InitializeComponent();
-            //string conct = ConfigurationManager.ConnectionStrings["PrimerExamenHospital.Properties.Settings.HospitalConnectionString"].ConnectionString;
-            conecxion = new SqlConnection("Data Source=DESKTOP-5ATPOUI;Initial Catalog=Hospital;User ID=sa;Password=123456789");
-
-
-
         }
-
-        /*
-        public void login()
-        {
-            
-            try
-            {
-                string peticion = "SELECT nombreDeUsuario, contrasenia FROM usuario WHERE='" + NombreUsuario.Text + "' AND  contrasenia='" + contrasenia.Text + "'";
-
-                conecxion.Open();
-
-                //using (conecxion)
-                //{
-                    using (SqlCommand cmd = new SqlCommand(peticion, conecxion))
-                    {
-                        SqlDataReader reader = cmd.ExecuteReader();
-
-                        if (reader.Read())
-                        {
-                            MessageBox.Show("conecxion correcta");
-                        }
-                        else
-                        {
-                            MessageBox.Show("ERROR EN LA CONECXION");
-                        }
-                    }
-                //}
-                conecxion.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                conecxion.Close();
-            }
-        }*/
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Conecxion conectar = new Conecxion();
+            MostrandoRegistros MisRegistros = new MostrandoRegistros();
+
             try
             {
-                string peticion = "SELECT nombreDeUsuario, contrasenia FROM usuario WHERE='" + NombreUsuario.Text + "' AND  contrasenia='" + contrasenia.Text + "'";
+                string peticion = String.Format("select * from usuario where nombreDeUsuario='" + NombreUsuario.Text + "' and contrasenia='" + contrasenia.Text + "'");
 
-                conecxion.Open();
+                
+                conectar.AbrirConnecxion();
 
-                using (conecxion)
+                SqlCommand cmd = new SqlCommand(peticion, conectar.AbrirConnecxion());
+               
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
                 {
-                using (SqlCommand cmd = new SqlCommand(peticion, conecxion))
-                {
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    string ban = reader["nombreDeUsuario"].ToString();
+                    reader.Close();
+                    cmd.Dispose();
+                    conectar.cerrarConecxion();
 
-                    if (reader.Read())
-                    {
-                        MessageBox.Show("conecxion correcta");
-                    }
-                    else
-                    {
-                        MessageBox.Show("ERROR EN LA CONECXION");
-                    }
+                    MessageBox.Show("DATOS VALIDOS");
+                    this.Close();
+                    MisRegistros.Show();
+
+                } 
+                else
+                {
+                    MessageBox.Show("USUARIO O CONTRASEÑA INCORRECTA");
                 }
-                }
-                conecxion.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }finally
-            {
-                conecxion.Close();
+            {               
+                conectar.cerrarConecxion();
+                NombreUsuario.Clear();
+                contrasenia.Clear();               
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Mostrando registrar = new Mostrando();
+            registrar.Show();
+            this.Close();
         }
     }
 }

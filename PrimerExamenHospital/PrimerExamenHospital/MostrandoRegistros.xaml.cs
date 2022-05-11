@@ -22,11 +22,12 @@ namespace PrimerExamenHospital
     /// </summary>
     public partial class MostrandoRegistros : Window
     {
+        Conecxion conectando = new Conecxion();
         public MostrandoRegistros()
         {
 
             InitializeComponent();
-            mostrar();
+            //mostrar();
             mostrarPacientes();
         }
 
@@ -34,10 +35,10 @@ namespace PrimerExamenHospital
         {
 
         }
-        
+           
         public void mostrar()
         {
-            Conecxion conectando = new Conecxion();
+            
 
             string consulta = "SELECT *, CONCAT(numeroDeExpedinte, NombreDeCreador) as mostrarTodo FROM registroDeExpediente";
             SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conectando.AbrirConnecxion());
@@ -49,45 +50,61 @@ namespace PrimerExamenHospital
             mostrarRegistros.ItemsSource = dt.DefaultView;
             conectando.cerrarConecxion();*/
         }
-
+        
         public void mostrarPacientes()
         {
-            Conecxion conectando = new Conecxion();
-            string consul = "SELECT * FROM pacientes";
-            //string consulta = "SELECT *, CONCAT(nombre,' ',apellido, ' ', edad, ' ', enfermedadQuePadece, ' ', numeroDeExpediente) as mostrarTodo FROM pacientes";
-            SqlDataAdapter adaptador = new SqlDataAdapter(consul, conectando.AbrirConnecxion());
-            DataTable dt = new DataTable();
-            adaptador.Fill(dt);
+            try
+            {
+                Conecxion conectando = new Conecxion();
+                string consul = "SELECT * FROM pacientes";
+                //string consulta = "SELECT *, CONCAT(nombre,' ',apellido, ' ', edad, ' ', enfermedadQuePadece, ' ', numeroDeExpediente) as mostrarTodo FROM pacientes";
+                SqlDataAdapter adaptador = new SqlDataAdapter(consul, conectando.AbrirConnecxion());
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
 
-            mostrarPaciente.DisplayMemberPath = "nombre";
-            mostrarPaciente.SelectedValuePath = "idPacientes";
-            mostrarPaciente.ItemsSource = dt.DefaultView;
-            conectando.cerrarConecxion();
+                mostrarPaciente.DisplayMemberPath = "nombre";
+                mostrarPaciente.SelectedValuePath = "idPacientes";
+                mostrarPaciente.ItemsSource = dt.DefaultView;
+                conectando.cerrarConecxion();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }            
         }
 
         public void registrar()
         {
-            Conecxion conectando = new Conecxion();
-            string consulta = "INSERT INTO pacientes(nombre, apellido, edad, enfermedadQuePadece, numeroDeExpediente) VALUES (@nombre, @apellido, @edad, @enfermedad, @expediente)";
+            try
+            {
+                Conecxion conectando = new Conecxion();
+                string consulta = "INSERT INTO pacientes(nombre, apellido, edad, enfermedadQuePadece, numeroDeExpediente, fechaDeNacimiento) VALUES (@nombre, @apellido, @edad, @enfermedad, @expediente, @fecha)";
 
-            SqlCommand command = new SqlCommand(consulta, conectando.AbrirConnecxion());
-            conectando.AbrirConnecxion();
-            command.Parameters.AddWithValue("@nombre", nombre.Text);
-            command.Parameters.AddWithValue("@apellido", apellido.Text);
-            command.Parameters.AddWithValue("@edad", edad.Text);
-            command.Parameters.AddWithValue("@enfermedad", enfermedad.Text);
-            command.Parameters.AddWithValue("@expediente", expediente.Text);
-            
-            command.ExecuteNonQuery();
-            conectando.cerrarConecxion();
+                SqlCommand command = new SqlCommand(consulta, conectando.AbrirConnecxion());
+                conectando.AbrirConnecxion();
+                command.Parameters.AddWithValue("@nombre", nombre.Text);
+                command.Parameters.AddWithValue("@apellido", apellido.Text);
+                command.Parameters.AddWithValue("@edad", edad.Text);
+                command.Parameters.AddWithValue("@enfermedad", enfermedad.Text);
+                command.Parameters.AddWithValue("@expediente", expediente.Text);
+                command.Parameters.AddWithValue("@fecha", fecha.Text);
 
-            mostrarPacientes();
-            nombre.Text = "";
-            apellido.Text = "";
-            edad.Text = "";
-            enfermedad.Text = "";
-            expediente.Text = "";
+                command.ExecuteNonQuery();
+                conectando.cerrarConecxion();
 
+                mostrarPacientes();
+                nombre.Text = "";
+                apellido.Text = "";
+                edad.Text = "";
+                enfermedad.Text = "";
+                expediente.Text = "";
+                fecha.Text = "";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
@@ -98,34 +115,36 @@ namespace PrimerExamenHospital
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Conecxion conectando = new Conecxion();
+            try
+            {
+                Conecxion conectando = new Conecxion();
 
-            string peticion = "DELETE FROM pacientes WHERE idPacientes=@IDBORRAR";
-            SqlCommand command = new SqlCommand(peticion, conectando.AbrirConnecxion());
-            conectando.AbrirConnecxion();
+                string peticion = "DELETE FROM pacientes WHERE idPacientes=@IDBORRAR";
+                SqlCommand command = new SqlCommand(peticion, conectando.AbrirConnecxion());
+                conectando.AbrirConnecxion();
 
-            command.Parameters.AddWithValue("@IDBORRAR", mostrarPaciente.SelectedValue);
-            command.ExecuteNonQuery();
-            conectando.cerrarConecxion();
+                command.Parameters.AddWithValue("@IDBORRAR", mostrarPaciente.SelectedValue);
+                command.ExecuteNonQuery();
+                conectando.cerrarConecxion();
 
-            mostrarPacientes();
-        }
-
-        public void actualizar()
-        {
-
+                mostrarPacientes();
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         //actualizar
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            Actualizar actualizar = new Actualizar();
-            actualizar.Show();
+            Actualizar actualizar = new Actualizar((int)mostrarPaciente.SelectedValue);
+            //actualizar.Show();
             Conecxion conectar = new Conecxion();
 
             try
             {
-                string peticion = "SELECT nombre, apellido, edad, enfermedadQuePadece, numeroDeExpediente FROM pacientes WHERE id=@IDPACIENTE";
+                string peticion = "SELECT nombre, apellido, edad, enfermedadQuePadece, numeroDeExpediente FROM pacientes WHERE idPacientes=@IDPACIENTE";
                 
                 SqlCommand cmd = new SqlCommand(peticion, conectar.AbrirConnecxion());
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -136,28 +155,25 @@ namespace PrimerExamenHospital
                     DataTable tabla = new DataTable();
                     adapter.Fill(tabla);
                     
-
-                    actualizar.nombre.Text = tabla.Rows[1]["nombre"].ToString();
-                    actualizar.apellido.Text = tabla.Rows[2]["apellido"].ToString();
-                    actualizar.edad.Text = tabla.Rows[3]["edad"].ToString();
-                    actualizar.enfermedad.Text = tabla.Rows[4]["enfermedadQuePadece"].ToString();
-                    actualizar.expediente.Text = tabla.Rows[5]["numeroDeExpediente"].ToString();
+                    actualizar.nombre.Text = tabla.Rows[0]["nombre"].ToString();
+                    actualizar.apellido.Text = tabla.Rows[0]["apellido"].ToString();
+                    actualizar.edad.Text = tabla.Rows[0]["edad"].ToString();
+                    actualizar.enfermedad.Text = tabla.Rows[0]["enfermedadQuePadece"].ToString();
+                    actualizar.expediente.Text = tabla.Rows[0]["numeroDeExpediente"].ToString();
 
                 }
-
-
             }catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }finally
             {
                 conectar.cerrarConecxion();
-                this.Close();
+                actualizar.ShowDialog();
+                mostrarPacientes();
             }
-
-
         }
 
+        // esta pendiente mi buscador
         public DataTable Buscar(string nombre)
         {
             string consulta = string.Format("SELECT * FROM pacientes WHERE nombre LIKE '%{0}%'", nombre);
@@ -178,7 +194,7 @@ namespace PrimerExamenHospital
         {
 
         }
-
+        // pendiente
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (buscar.Text != "")
@@ -186,7 +202,8 @@ namespace PrimerExamenHospital
                 mostrarPaciente.DisplayMemberPath = Buscar(buscar.Text).ToString();
             }
             else
-                mostrarPacientes();
+                Buscar(buscar.Text);
+                //mostrarPacientes();
         }
     }
 }

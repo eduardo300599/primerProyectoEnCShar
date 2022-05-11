@@ -16,8 +16,9 @@
         <TextBox Name="contrasenia" HorizontalAlignment="Left" Margin="167,237,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <Label Content="usuario" HorizontalAlignment="Left" Margin="86,158,0,0" VerticalAlignment="Top" FontFamily="Arial Black"/>
         <Label Content="contraseña" HorizontalAlignment="Left" Margin="67,233,0,0" VerticalAlignment="Top" FontFamily="Arial Black"/>
-        <Button Content="Acceder" HorizontalAlignment="Left" Margin="151,314,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click" Grid.ColumnSpan="2"/>
+        <Button Content="Acceder" HorizontalAlignment="Left" Margin="126,307,0,0" VerticalAlignment="Top" Width="145" Click="Button_Click" Grid.ColumnSpan="2"/>
         <Label Content="Iniciar secion" HorizontalAlignment="Left" Margin="68,25,0,0" VerticalAlignment="Top" FontSize="34" FontFamily="Arial Black" Grid.ColumnSpan="2"/>
+        <Button Content="No tengo cuenta" HorizontalAlignment="Left" Margin="126,369,0,0" VerticalAlignment="Top" Width="145" Cursor="Hand" Grid.ColumnSpan="2" Click="Button_Click_1"/>
 
     </Grid>
 </Window>

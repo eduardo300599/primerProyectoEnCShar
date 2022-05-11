@@ -21,19 +21,21 @@ namespace PrimerExamenHospital
     /// </summary>
     public partial class Actualizar : Window
     {
-        public Actualizar()
+        private int i;
+        public Actualizar(int id)
         {
             InitializeComponent();
+            i = id;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Conecxion conectar = new Conecxion();
             MostrandoRegistros mostrarR = new MostrandoRegistros();
-            string consulta = "UPDATE pacientes SET(nombre = @nombre, apellido=@apellido, edad=@edad, enfermedadQuePadece=@enfermedad, numeroDeExpediente=@expediente) WHERE id=",i;
+            string consulta = "UPDATE pacientes SET nombre = @nombre, apellido=@apellido, edad=@edad, enfermedadQuePadece=@enfermedad, numeroDeExpediente=@expediente WHERE idPacientes="+ i;
 
             try
-            {
+            {                
                 SqlCommand cmd = new SqlCommand(consulta,conectar.AbrirConnecxion());
                 conectar.AbrirConnecxion();
 
@@ -43,21 +45,16 @@ namespace PrimerExamenHospital
                 cmd.Parameters.AddWithValue("@enfermedad", enfermedad.Text);
                 cmd.Parameters.AddWithValue("@expediente", expediente.Text);
                 cmd.ExecuteNonQuery();
-                conectar.cerrarConecxion();
-
-                
-
-
-
+                MessageBox.Show("MODIFICADO CON EXITO");
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("aqui "+ex.Message);
             }finally
             {
                 conectar.cerrarConecxion();
                 this.Close();
-                mostrarR.Show();
+                //mostrarR.Show();
             }
         }
     }

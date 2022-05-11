@@ -7,17 +7,20 @@
         mc:Ignorable="d"
         Title="Actualizar" Height="450" Width="600">
     <Grid>
-        <TextBox Name="nombre" HorizontalAlignment="Left" Height="28" Margin="300,64,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="600" Background="#FF3F3887"/>
+
+        <TextBox x:Name="nombre" HorizontalAlignment="Left" Height="28" Margin="300,64,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
         <Button Content="Actualizar" HorizontalAlignment="Left" Margin="301,392,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBox Name="apellido" HorizontalAlignment="Left" Margin="300,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
-        <TextBox Name="edad" HorizontalAlignment="Left" Margin="300,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
-        <TextBox Name="enfermedad" HorizontalAlignment="Left" Margin="300,264,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
-        <TextBox Name="expediente" HorizontalAlignment="Left" Margin="300,329,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
+        <TextBox x:Name="apellido" HorizontalAlignment="Left" Margin="300,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
+        <TextBox x:Name="edad" HorizontalAlignment="Left" Margin="300,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
+        <TextBox x:Name="enfermedad" HorizontalAlignment="Left" Margin="300,264,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
+        <TextBox x:Name="expediente" HorizontalAlignment="Left" Margin="300,329,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152"/>
         <Label Content="Nombre" HorizontalAlignment="Left" Margin="225,75,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="edad" HorizontalAlignment="Left" Margin="241,204,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="apellido" HorizontalAlignment="Left" Margin="225,137,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="enfermedad" HorizontalAlignment="Left" Margin="203,272,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="N. Expediente" HorizontalAlignment="Left" Margin="192,337,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Actualizar" HorizontalAlignment="Left" Margin="225,5,0,0" VerticalAlignment="Top" Width="206" Height="49" FontSize="36" FontWeight="Bold" FontFamily="Arial Black" Background="White"/>
 
     </Grid>
 </Window>

@@ -7,12 +7,14 @@
         mc:Ignorable="d"
         Title="Mostrando" Height="450" Width="400">
     <Grid>
-        <Label Content="Registro de usuario" HorizontalAlignment="Center" Height="74" Margin="0,33,0,0" VerticalAlignment="Top" Width="380" FontSize="34" FontFamily="Arial Black"/>
-        <Label Content="usuario" HorizontalAlignment="Left" Margin="68,152,0,0" VerticalAlignment="Top" FontFamily="Arial Black"/>
-        <Label Content="contraseña" HorizontalAlignment="Left" Margin="42,217,0,0" VerticalAlignment="Top" FontFamily="Arial Black"/>
-        <TextBox Name="user" HorizontalAlignment="Center" Margin="0,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="pass" HorizontalAlignment="Center" Margin="0,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Registrar" HorizontalAlignment="Left" Margin="140,289,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label Content="Registro de usuario" HorizontalAlignment="Center" Height="74" Margin="0,28,0,0" VerticalAlignment="Top" Width="380" FontSize="34" FontFamily="Arial Black"/>
+        <Label Content="usuario" HorizontalAlignment="Left" Margin="55,229,0,0" VerticalAlignment="Top" FontFamily="Arial Black"/>
+        <Label Content="contraseña" HorizontalAlignment="Left" Margin="42,272,0,0" VerticalAlignment="Top" FontFamily="Arial Black"/>
+        <TextBox Name="usuario" HorizontalAlignment="Center" Margin="0,217,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Cursor="Arrow"/>
+        <TextBox Name="contrasenia" HorizontalAlignment="Center" Margin="0,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Registrar" HorizontalAlignment="Center" Margin="0,357,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
+        <Label Content="nombre" HorizontalAlignment="Left" Margin="54,180,0,0" VerticalAlignment="Top" FontFamily="Arial Black"/>
+        <TextBox x:Name="nombre" HorizontalAlignment="Center" Margin="0,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Cursor="Arrow"/>
 
     </Grid>
 </Window>

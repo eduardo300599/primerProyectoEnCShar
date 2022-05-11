@@ -1,6 +1,8 @@
 CREATE DATABASE Hospital
+go
 
 USE Hospital
+go
 
 create table fechaDeContratacion
 (
@@ -30,9 +32,9 @@ create table empleados
 	cargo nvarchar(20) not null,
 	salario nvarchar(10) not null,
 	areaDeTrabajo nvarchar(10) not null,
-	idUsuario int not null,
-	idFecha int not null,
-	idCargo int not null,
+	idUsuario int,
+	idFecha int,
+	idCargo int,
 
 	constraint pk_empleados_idEmpleados primary key clustered(idEmpleado),
 	constraint fk_FechaDeContratacion foreign key(idFecha) references FechaDeContratacion(idFecha),
@@ -43,9 +45,10 @@ go
 create table usuario
 (
 	idUsuario int identity(1,1) not null,
-	nombreDeUsuario nvarchar(15) not null,
-	contrasenia varbinary not null,
-	idEmpleado int not null,
+	nombre nvarchar(50) null,
+	nombreDeUsuario nvarchar(50) not null,
+	contrasenia nvarchar(50) not null,
+	idEmpleado int,
 
 	constraint pk_usuario_idUsuario primary key clustered(idUsuario),
 	constraint fk_empleados foreign key(idEmpleado) references empleados(idEmpleado)
@@ -55,9 +58,9 @@ go
 create table roles
 (
 	idRoles int identity(1,1),
-	administrador nvarchar,
-	usuarioComun nvarchar,
-	idUsuario int not null,
+	administrador nvarchar(30),
+	usuarioComun nvarchar(30),
+	idUsuario int,
 
 	constraint pk_roles_idRoles primary key clustered(idRoles),
 	constraint fk_usuario foreign key(idUsuario) references usuario(idUsuario)
@@ -102,7 +105,7 @@ create table admision
 )
 go
 
-create table fechaDeNacimiento
+/*create table fechaDeNacimiento
 (
 	idFecha int identity(1,1) not null,
 	dia nvarchar(10) not null,
@@ -111,7 +114,7 @@ create table fechaDeNacimiento
 
 	constraint pk_fechaDeNacimiento_idFecha primary key clustered(idFecha)
 )
-go
+go*/
 
 create table registroDeExpediente
 (
@@ -126,22 +129,21 @@ go
 
 create table pacientes
 (
-	int identity(1,1) not null,
-	nombre nvarchar(20) not null,
-	apellido nvarchar(20) not null,
+	idPacientes int identity(1,1) not null,
+	nombre nvarchar(50) not null,
+	apellido nvarchar(50) not null,
 	edad int not null,
-	enfermedadQuePadece nvarchar(50) not null,
+	enfermedadQuePadece nvarchar(70) not null,
 	numeroDeExpediente int not null,
-	idFecha int not null,
-	idExpediente int not null,
+	fechaDeNacimiento datetime,
+	idExpediente int,
 
 	constraint pk_pacientes_idPacientes primary key clustered(idPacientes),
-	constraint fk_fechaDeNacimiento foreign key(idFecha) references fechaDeNacimiento(idFecha),
 	constraint fk_registroDeExpediente foreign key(idExpediente) references registroDeExpediente(idExpediente)
 )
 go
 
-create proc pg_login
+--create proc pg_login
 
-insert into pacientes(nombre, apellido, edad, enfermedadQuePadece, numeroDeExpediente) values('williams','manuel','23','sexy','6');
-SELECT * FROM pacientes WHERE apellido LIKE '%{manuel}%'
+--insert into pacientes(nombre, apellido, edad, enfermedadQuePadece, numeroDeExpediente) values('williams','manuel','23','dolor','1');
+--SELECT * FROM pacientes WHERE apellido LIKE '%{manuel}%';
